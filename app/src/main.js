@@ -15,7 +15,20 @@ const EXPORT_SIZES = [
   { id: 'wide', label: 'Wide 1920 x 1080', width: 1920, height: 1080 },
 ];
 
-const SAMPLE_FILES = ['samples/neon-duo.jpg', 'samples/boulevard.jpg', 'samples/pier.jpg'];
+// Seven bundled samples, dealt into the panels in this order: the duo hero
+// first, then the wide landscape scenes (they crop cleanly into the hero
+// layout's wide side panels), then the portrait-friendly shots. With seven
+// photos every layout — six panels at most — shows a different photo in
+// every panel instead of repeating the pool.
+const SAMPLE_FILES = [
+  'samples/neon-duo.jpg',
+  'samples/convertible.jpg',
+  'samples/hotel-neon.jpg',
+  'samples/flamingos.jpg',
+  'samples/boulevard.jpg',
+  'samples/pier.jpg',
+  'samples/helicopter.jpg',
+];
 
 const els = {
   canvas: document.getElementById('preview'),

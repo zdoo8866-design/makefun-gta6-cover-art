@@ -31,9 +31,12 @@ in desktop Chrome (or serve `app/` with any static server, e.g.
 - **Exports** at the three common post sizes: 1080 x 1080,
   1080 x 1350 and 1920 x 1080 PNG.
 - **Built-in samples.** "Load sample photos" fills the panels with the
-  bundled images, including an original generated scene of two leads
+  seven bundled images — enough that every panel of every layout shows a
+  different photo. They include an original generated scene of two leads
   seen from behind as rim-lit silhouettes on a sunset boulevard
-  (`app/samples/neon-duo.jpg`).
+  (`app/samples/neon-duo.jpg`) plus matching generated sunset scenes of
+  a pink convertible, a neon art-deco hotel, flamingos on the beach and
+  a helicopter over the sea, alongside two stock-style portraits.
 
 Source layout: `app/src/layouts.js` (panel geometry), `app/src/grade.js`
 (gradient-map colour grades), `app/src/render.js` (the one renderer used
