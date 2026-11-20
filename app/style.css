@@ -1,12 +1,165 @@
-html, body { margin: 0; height: 100%; background: #f2f0f4; color: #1d1b22; font: 15px/1.4 system-ui, sans-serif; }
-.app { display: flex; gap: 32px; align-items: center; justify-content: center; height: 100%; padding: 24px; box-sizing: border-box; }
-.controls { display: flex; flex-direction: column; gap: 14px; width: 280px; }
-.controls h1 { margin: 0; font-size: 28px; }
-.controls p { margin: 0; color: #5c5866; }
-label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; }
-input[type=text] { font: inherit; padding: 8px; border: 1px solid #c9c4d1; border-radius: 6px; }
-button { font: inherit; font-weight: 700; padding: 10px; border: 0; border-radius: 6px; background: #1d1b22; color: #fff; cursor: pointer; }
-canvas { width: min(70vh, 60vw); height: min(70vh, 60vw); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); }
-body.shot-cover .controls { display: none; }
-body.shot-cover .app { padding: 0; }
-body.shot-cover canvas { width: 100vw; height: 100vh; box-shadow: none; }
+/* Neon Coast Cover Studio: a dark studio shell around a bright poster.
+   The two poster fonts are vendored under fonts/ (SIL Open Font License);
+   everything else is system type so the app stays fully offline. */
+@font-face {
+  font-family: "AntonLocal";
+  src: url("./fonts/Anton-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "PacificoLocal";
+  src: url("./fonts/Pacifico-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; }
+body {
+  background: #150a24;
+  color: #f5eefc;
+  font: 15px/1.45 "Segoe UI", system-ui, sans-serif;
+}
+
+.shell {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  max-width: 1460px;
+  margin: 0 auto;
+  padding: 22px;
+}
+
+.panel {
+  width: 330px;
+  flex: 0 0 330px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-height: calc(100vh - 44px);
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.brand h1 {
+  margin: 0 0 6px;
+  font-family: "AntonLocal", "Arial Black", sans-serif;
+  font-size: 34px;
+  line-height: 1.05;
+  letter-spacing: 0.5px;
+  background: linear-gradient(180deg, #fff6e0 20%, #ffd166 55%, #ff5e8a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.brand p { margin: 0; color: #bda9d9; font-size: 13.5px; }
+
+.group {
+  background: #211136;
+  border: 1px solid #3a2058;
+  border-radius: 12px;
+  padding: 14px 16px 16px;
+}
+.group h2 {
+  margin: 0 0 10px;
+  font-size: 13px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: #7df9ff;
+}
+.group h2.subhead { margin-top: 14px; }
+
+.drop-zone {
+  border: 1.5px dashed #6d4a9e;
+  border-radius: 10px;
+  padding: 14px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+.drop-zone p { margin: 0; color: #bda9d9; }
+.drop-zone.is-dragging { border-color: #7df9ff; background: #2a1850; }
+
+.file-button, .export-button {
+  font: inherit;
+  font-weight: 700;
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  background: linear-gradient(90deg, #ff5e8a, #f7a54d);
+  color: #1c0b26;
+}
+.ghost-button {
+  font: inherit;
+  border: 1px solid #6d4a9e;
+  background: transparent;
+  color: #e9defc;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.ghost-button:hover { border-color: #7df9ff; }
+
+.strip { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.thumb {
+  width: 62px; height: 62px;
+  padding: 0; border: 2px solid #3a2058; border-radius: 8px;
+  overflow: hidden; cursor: pointer; background: #150a24;
+}
+.thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.thumb:hover { border-color: #ff5e8a; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.chip {
+  font: inherit; font-size: 13.5px;
+  border: 1px solid #6d4a9e; border-radius: 999px;
+  background: transparent; color: #e9defc;
+  padding: 6px 12px; cursor: pointer;
+}
+.chip.is-active {
+  background: #7df9ff; border-color: #7df9ff; color: #12222b; font-weight: 700;
+}
+
+.panel-label { margin: 0 0 8px; font-weight: 700; color: #ffd166; }
+.field {
+  display: flex; flex-direction: column; gap: 5px;
+  font-size: 13.5px; font-weight: 600; margin-bottom: 10px;
+}
+.field input[type="text"], .field select {
+  font: inherit; padding: 8px 10px;
+  border-radius: 7px; border: 1px solid #4a2f73;
+  background: #170b29; color: #f5eefc;
+}
+.field input[type="range"] { width: 100%; accent-color: #ff5e8a; }
+.hint { margin: 2px 0 10px; font-size: 12.5px; color: #bda9d9; }
+.check { display: flex; gap: 8px; align-items: center; font-size: 13.5px; margin-top: 6px; }
+.check input { accent-color: #ff5e8a; }
+
+.export-button { width: 100%; font-size: 16px; padding: 12px; }
+.status { margin: 10px 0 0; min-height: 1.2em; font-size: 13px; color: #ffd166; }
+
+.stage {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  position: sticky;
+  top: 22px;
+}
+.stage canvas {
+  max-width: 100%;
+  max-height: calc(100vh - 44px);
+  width: auto;
+  height: auto;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
+  cursor: grab;
+  touch-action: none;
+}
+
+body.shot-cover .panel { display: none; }
+body.shot-cover .shell { padding: 0; max-width: none; }
+body.shot-cover .stage { position: static; }
+body.shot-cover .stage canvas {
+  width: 100vw; height: 100vh; max-height: none; box-shadow: none; cursor: default;
+}

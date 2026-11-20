@@ -1,5 +1,1 @@
-[
-  { "name": "1-cover.jpg", "query": "?shot=cover&photo=pier&caption=Sunset%20Heist", "w": 1080, "h": 1080 },
-  { "name": "2-editor.jpg", "query": "?shot=editor&photo=boulevard&caption=Boulevard%20Queen", "w": 1280, "h": 720 },
-  { "name": "3-cover.jpg", "query": "?shot=cover&photo=boulevard&caption=Boulevard%20Queen", "w": 1080, "h": 1080 }
-]
+[{"h":1080,"name":"1-cover.jpg","query":"?shot=cover&layout=hero&grade=sunset&size=1920x1080&t1=NEON&t2=COAST&sub=welcome%20to%20neon%20coast","w":1920},{"h":800,"name":"2-editor.jpg","query":"?shot=editor&layout=hero&grade=sunset&size=1080x1080","w":1280},{"h":1350,"name":"3-cover.jpg","query":"?shot=cover&layout=quad&grade=neon&size=1080x1350&t1=NEON&t2=COAST&sub=welcome%20to%20neon%20coast","w":1080},{"h":800,"name":"4-editor.jpg","query":"?shot=editor&layout=six&grade=neon&size=1080x1350","w":1280}]

@@ -3,20 +3,86 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cover Snap</title>
+<title>Neon Coast Cover Studio</title>
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-<main class="app">
-  <section class="controls">
-    <h1>Cover Snap</h1>
-    <p>A photo and a caption, made into a square cover.</p>
-    <label>Photo <input id="photo" type="file" accept="image/*"></label>
-    <label>Caption <input id="caption" type="text" maxlength="40" value="Sunset Heist"></label>
-    <button id="export" type="button">Export PNG 1080 x 1080</button>
-    <p id="status" role="status"></p>
+<main class="shell">
+  <aside class="panel">
+    <header class="brand">
+      <h1>Neon Coast<br>Cover Studio</h1>
+      <p>Your photos become a multi-panel sunset poster. Everything runs on
+      this machine, offline — photos are read locally and never uploaded.</p>
+    </header>
+
+    <section class="group">
+      <h2>1 · Photos</h2>
+      <div id="drop-zone" class="drop-zone">
+        <p>Drop photos here, or</p>
+        <label class="file-button">Choose photos
+          <input id="photo-input" type="file" accept="image/*" multiple hidden>
+        </label>
+        <button id="load-sample" type="button" class="ghost-button">Load sample photos</button>
+      </div>
+      <div id="photo-strip" class="strip" aria-label="Loaded photos"></div>
+    </section>
+
+    <section class="group">
+      <h2>2 · Layout</h2>
+      <div id="layout-group" class="chips"></div>
+      <h2 class="subhead">Colour grade</h2>
+      <div id="grade-group" class="chips"></div>
+    </section>
+
+    <section class="group">
+      <h2>3 · Frame the panel</h2>
+      <p id="panel-label" class="panel-label">Panel 1</p>
+      <label class="field">Photo in this panel
+        <select id="panel-photo"></select>
+      </label>
+      <label class="field">Pan left / right
+        <input id="pan-x" type="range" min="-100" max="100" value="0">
+      </label>
+      <label class="field">Pan up / down
+        <input id="pan-y" type="range" min="-100" max="100" value="0">
+      </label>
+      <label class="field">Zoom
+        <input id="zoom" type="range" min="100" max="300" value="100">
+      </label>
+      <p class="hint">Tip: click a panel on the poster to select it, drag to
+      pan it, scroll to zoom it. Arrow keys nudge the crop, [ and ] switch
+      panels, + and - zoom.</p>
+      <button id="fill-all" type="button" class="ghost-button">Fill every panel with this photo</button>
+    </section>
+
+    <section class="group">
+      <h2>4 · Title</h2>
+      <label class="field">Title line one
+        <input id="title-1" type="text" maxlength="18" value="NEON">
+      </label>
+      <label class="field">Title line two
+        <input id="title-2" type="text" maxlength="18" value="COAST">
+      </label>
+      <label class="field">Script subtitle
+        <input id="subtitle" type="text" maxlength="42" value="welcome to neon coast">
+      </label>
+      <label class="check"><input id="opt-grain" type="checkbox" checked> Film grain</label>
+      <label class="check"><input id="opt-vignette" type="checkbox" checked> Vignette</label>
+    </section>
+
+    <section class="group">
+      <h2>5 · Export</h2>
+      <label class="field">Post size
+        <select id="size-select"></select>
+      </label>
+      <button id="export-png" type="button" class="export-button">Export PNG</button>
+      <p id="status" class="status" role="status"></p>
+    </section>
+  </aside>
+
+  <section class="stage">
+    <canvas id="preview" width="1080" height="1080" aria-label="Cover preview"></canvas>
   </section>
-  <canvas id="cover" width="1080" height="1080" aria-label="The cover"></canvas>
 </main>
 <script type="module" src="./src/main.js"></script>
 </body>
